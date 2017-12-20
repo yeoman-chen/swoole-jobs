@@ -129,14 +129,10 @@ class Logs
 
             if (@filesize($fileName) > $this->maxFileSize * 1024 * 1024) {
                 $this->rotateFiles($fileName);
-                @flock($fp, LOCK_UN);
-                @fclose($fp);
-                @file_get_contents($fileName, $value, FILE_APPEND | LOCK_EX);
-            } else {
-                @fwrite($fp, $value);
-                @flock($fp, LOCK_UN);
-                @fclose($fp);
-            }
+            } 
+            @fwrite($fp, $value);
+            @flock($fp, LOCK_UN);
+            @fclose($fp);
         }
     }
 
